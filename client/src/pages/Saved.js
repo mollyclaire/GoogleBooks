@@ -1,53 +1,42 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../components/Grid";
-import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
+import Jumbotron from "../components/Jumbotron";
+import { Container} from "../components/Grid";
+import SavedResult from "../components/SavedResult"
 
-class Detail extends Component {
-  state = {
-    book: {}
-  };
+class SaveBook extends Component {
+    state = {
+        savedBooks: []
+    };
 
-  componentDidMount () {
-    API.getBook(this.props.match.params.id)
-    .then (res =>
-      this.setState({ book: res.data})
-      )
-      .catch(err => console.log(err))
-  }
-  // Add code to get the book with an _id equal to the id in the route param
-  // e.g. http://localhost:3000/books/:id
-  // The book id for this route can be accessed using this.props.match.params.id
+    //when this component mounts, grab all books that were save to the database 
+    componentDidMount() {
+        API.getBooks()
+            .then(res => this.setState({ savedBooks: res.data }))
+            .catch(err => console.log(err))
+    }
 
-  render() {
-    return (
-      <Container fluid>
-        <Row>
-          <Col size="md-12">
-            <Jumbotron>
-              <h1>
-                {this.state.book.title} by {this.state.book.author}
-              </h1>
-            </Jumbotron>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-10 md-offset-1">
-            <article>
-              <h1>Synopsis</h1>
-              <p>{this.state.book.synopsis}</p>
-            </article>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-2">
-            <Link to="/">← Back to Authors</Link>
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
+    //function to remove book by id
+    handleDeleteButton = id => {
+        API.deleteBook(id)
+            .then(res => this.componentDidMount())
+            .catch(err => console.log(err))
+    }
+
+    render() {
+        return (
+            <Container fluid className="container">
+                <Jumbotron />
+                <Container>
+                    <SavedResult savedBooks={this.state.savedBooks} handleDeleteButton={this.handleDeleteButton} />
+                </Container>
+            </Container>
+        )
+    }
 }
 
-export default Detail;
+
+
+export default SaveBook 
+
+
