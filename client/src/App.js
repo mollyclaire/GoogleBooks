@@ -14,11 +14,9 @@ function App() {
           <Switch>
             <Route exact path="/" component={Search} />
             <Route exact path="/books" component={Saved} />
-            
             <Route component={NoMatch} />
           </Switch>
-        
-        <Search />
+    
       </div>
     </Router>
   );

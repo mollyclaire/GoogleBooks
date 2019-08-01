@@ -67,11 +67,19 @@ handleSavedButton = event => {
       .then(this.setState({ message: alert("Your book is saved") }))
       .catch(err => console.log(err))
 }
+
+renderResults = () => {
+  if (this.state.books) {
+    return <SearchResult books={this.state.books} handleSavedButton={this.handleSavedButton} />
+  }
+  }
+
+
 render() {
     return (
         <Container fluid>
             <Jumbotron>
-                <h1 className="text-white">Find Your Favorite Books with GoogleBook API</h1>
+                <h1 className="text-white">Search for Books using the GoogleBook API</h1>
             </Jumbotron>
             <Container>
                 <Row>
@@ -85,7 +93,8 @@ render() {
             </Container>
             <br></br>
             <Container>
-                <SearchResult books={this.state.books} handleSavedButton={this.handleSavedButton} />
+                {/* <SearchResult books={this.state.books} handleSavedButton={this.handleSavedButton} /> */}
+                {this.renderResults()}
             </Container>
         </Container>
     )
@@ -93,5 +102,6 @@ render() {
 
 
 }
+
 
 export default Search;
