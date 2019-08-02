@@ -68,11 +68,11 @@ handleSavedButton = event => {
       .catch(err => console.log(err))
 }
 
-renderResults = () => {
-  if (this.state.books) {
-    return <SearchResult books={this.state.books} handleSavedButton={this.handleSavedButton} />
-  }
-  }
+// renderResults = () => {
+//   if (this.state.books) {
+//     return <SearchResult books={this.state.books} handleSavedButton={this.handleSavedButton} />
+//   } else {this.setState({ message: "No results to display"})}
+//   }
 
 
 render() {
@@ -93,8 +93,13 @@ render() {
             </Container>
             <br></br>
             <Container>
-                {/* <SearchResult books={this.state.books} handleSavedButton={this.handleSavedButton} /> */}
-                {this.renderResults()}
+              {this.state.books.length ? (
+                <SearchResult 
+                  books={this.state.books} 
+                  handleSavedButton={this.handleSavedButton} 
+                  />
+              ) : ( <h3>No Results to Display</h3>)}
+                {/* {this.renderResults()} */}
             </Container>
         </Container>
     )
