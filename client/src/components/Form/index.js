@@ -16,7 +16,7 @@ const SearchForm = props => {
                     onChange={props.handleInputChange}
                 />
             </div>
-            <button type="submit" className="submitBtn btn btn-primary" onClick={props.handleFormSubmit}>
+            <button type="submit" className="submitBtn btn" onClick={props.handleFormSubmit}>
                 Submit
             </button>
         </form>
